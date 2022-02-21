@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService, IUser } from 'src/app/shared/service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  errorMessage: string = '';
+
+  user: IUser = {email: '', password: ''};
+
+  constructor(
+    private auth: AuthService<IUser>,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
+    // this.auth.register({
+    //   email: 'admin@admin.hu',
+    //   password: 'password',
+    // }).subscribe({
+    //   next: user => console.log(user),
+    //   error: err => console.error(err),
+    // });
+  }
+
+  onSubmit(): void {
+    this.auth.login(this.user).subscribe({
+      next: user => this.router.navigate(['/']),
+      error: err => this.errorMessage = err.error,
+    });
   }
 
 }

@@ -7,4 +7,5 @@ export class User {
   email: string = '';
   gender: string = '';
   address: string = '';
+  password?: string;
 }
