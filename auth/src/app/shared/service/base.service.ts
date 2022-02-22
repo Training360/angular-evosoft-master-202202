@@ -11,13 +11,9 @@ export class BaseService<T extends { id?: number }> {
 
   entityName: string = '';
 
-  private http!: HttpClient;
-
-  constructor() {
-    this.http = new HttpClient(new HttpXhrBackend({
-      build: () => new XMLHttpRequest()
-    }));
-  }
+  constructor(
+    public http: HttpClient,
+  ) {}
 
   getAll(): Observable<T[]> {
     return this.http.get<T[]>(`${this.apiUrl}${this.entityName}`);

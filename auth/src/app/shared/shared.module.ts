@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EvoElementsModule } from '../evo-elements/evo-elements.module';
 import { DataTableComponent } from '../evo-elements/data-table/data-table.component';
 
@@ -15,6 +15,7 @@ import { DataTableComponent } from '../evo-elements/data-table/data-table.compon
   ],
   exports: [
     DataTableComponent,
-  ]
+  ],
+  providers: []
 })
 export class SharedModule { }

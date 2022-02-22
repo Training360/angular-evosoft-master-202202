@@ -9,7 +9,7 @@
     "analyze": "webpack-bundle-analyzer dist/auth/stats.json",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "server": "json-server-auth ./server/users.json"
+    "server": "json-server-auth ./server/users.json -r ./server/routes.json"
   },
   "private": true,
   "dependencies": {

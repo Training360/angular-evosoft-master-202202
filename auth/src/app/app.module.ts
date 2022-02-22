@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './page/login/login.component';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './service/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,13 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

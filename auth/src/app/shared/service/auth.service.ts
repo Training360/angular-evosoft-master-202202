@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 
 export interface IUser {
   email: string;
-  password: string;
+  password?: string;
   accessToken?: string;
 }
 
@@ -20,37 +20,59 @@ export class AuthService<T extends IUser> {
 
   private http!: HttpClient;
 
-  private user$: BehaviorSubject<T | null> =
+  private userKey: string = 'auth0-user';
+
+  private strictSession: boolean = false;
+
+  private userSubject$: BehaviorSubject<T | null> =
     new BehaviorSubject<T | null>(null);
 
-  get user(): T | null {
-    return this.user$.value;
+  get user$(): BehaviorSubject<T | null> {
+    return this.userSubject$;
   }
 
   constructor() {
     this.http = new HttpClient(new HttpXhrBackend({
       build: () => new XMLHttpRequest()
     }));
+
+    if (sessionStorage[this.userKey]) {
+      const user: T = JSON.parse(sessionStorage[this.userKey]);
+      this.userSubject$.next(user);
+    }
+
+    if (this.strictSession) {
+      window.addEventListener('beforeunload', (e) => {
+        sessionStorage.removeItem(this.userKey);
+      });
+    }
   }
 
-  login(user: T): Observable<T> {
+  login(user: T): Observable<T | null> {
     return this.http.post<T>(
       `${this.apiUrl}login`,
-      {email: user.email, password: user.password},
+      { email: user.email, password: user.password },
     ).pipe(
-      switchMap( (response) => {
+      switchMap((response) => {
+        let currentUser = null;
+
         if (!response.accessToken) {
-          this.user$.next(null);
+          sessionStorage.removeItem(this.userKey);
+        } else {
+          currentUser = { ...user, password: '', accessToken: response.accessToken };
+          sessionStorage.setItem(this.userKey, JSON.stringify(currentUser));
         }
-        return of({...user, accessToken: response.accessToken});
+
+        this.userSubject$.next(currentUser);
+        return of(currentUser);
       }),
-    )
+    );
   }
 
   register(user: T): Observable<T> {
     return this.http.post<T>(
       `${this.apiUrl}/register`,
-      {email: user.email, password: user.password},
+      { email: user.email, password: user.password },
     );
   }
 
