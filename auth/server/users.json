@@ -8003,7 +8003,14 @@
     {
       "email": "admin@admin.hu",
       "password": "$2a$10$9bEeeH3fU647QPgXd8TXq.33uAvRsIYkE8v9LBLP6.6FYFx3y6csa",
+      "role": 1,
       "id": 1001
+    },
+    {
+      "email": "lister@lister.hu",
+      "password": "$2a$10$l5ite2nRhfKdpb06MDHz2OT0yWcKfggzLdED2GKiYB7bK3n0fYrqG",
+      "role": 2,
+      "id": 1002
     }
   ]
 }

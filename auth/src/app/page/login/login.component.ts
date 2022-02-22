@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     // this.auth.register({
-    //   email: 'admin@admin.hu',
+    //   email: 'lister@lister.hu',
     //   password: 'password',
     // }).subscribe({
     //   next: user => console.log(user),

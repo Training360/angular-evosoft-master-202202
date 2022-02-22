@@ -1,10 +1,11 @@
-import { HttpClient, HttpXhrBackend } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpXhrBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, of, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 export interface IUser {
   email: string;
+  role?: number;
   password?: string;
   accessToken?: string;
 }
@@ -54,16 +55,24 @@ export class AuthService<T extends IUser> {
       { email: user.email, password: user.password },
     ).pipe(
       switchMap((response) => {
-        let currentUser = null;
-
         if (!response.accessToken) {
           sessionStorage.removeItem(this.userKey);
-        } else {
-          currentUser = { ...user, password: '', accessToken: response.accessToken };
-          sessionStorage.setItem(this.userKey, JSON.stringify(currentUser));
+          return of(null);
         }
 
-        this.userSubject$.next(currentUser);
+        return this.http.get<T>(`${this.apiUrl}users?email=${user.email}`, {
+          headers: new HttpHeaders({
+            Authorization: `Bearer ${response.accessToken}`
+          }),
+        }).pipe( map( user => ({...user, accessToken: response.accessToken})));
+      }),
+      switchMap((user) => {
+        if (!user) {
+          return of(null);
+        }
+
+        const currentUser = { ...user, password: '' };
+        sessionStorage.setItem(this.userKey, JSON.stringify(currentUser));
         return of(currentUser);
       }),
     );
