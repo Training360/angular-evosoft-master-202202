@@ -60,11 +60,11 @@ export class AuthService<T extends IUser> {
           return of(null);
         }
 
-        return this.http.get<T>(`${this.apiUrl}users?email=${user.email}`, {
+        return this.http.get<T[]>(`${this.apiUrl}users?email=${user.email}`, {
           headers: new HttpHeaders({
             Authorization: `Bearer ${response.accessToken}`
           }),
-        }).pipe( map( user => ({...user, accessToken: response.accessToken})));
+        }).pipe( map( users => ({...users[0], accessToken: response.accessToken})));
       }),
       switchMap((user) => {
         if (!user) {

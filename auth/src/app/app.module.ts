@@ -10,12 +10,14 @@ import { NavbarComponent } from './common/navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './service/jwt.interceptor';
+import { ForbiddenComponent } from './page/forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,

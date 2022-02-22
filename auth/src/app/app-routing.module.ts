@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuRoute } from './model/menu-route';
+import { ForbiddenComponent } from './page/forbidden/forbidden.component';
 import { LoginComponent } from './page/login/login.component';
 import { AuthGuard } from './service/auth.guard';
 import { RoleGuard } from './service/role.guard';
@@ -17,7 +18,7 @@ const routes: MenuRoute[] = [
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
     canActivate: [
       AuthGuard,
-      // RoleGuard,
+      RoleGuard,
     ],
     data: {
       role: 2
@@ -40,6 +41,10 @@ const routes: MenuRoute[] = [
     title: 'Login',
     component: LoginComponent,
   },
+  {
+    path: 'forbidden',
+    component: ForbiddenComponent,
+  }
 ];
 
 @NgModule({
