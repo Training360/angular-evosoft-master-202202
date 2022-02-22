@@ -1,0 +1,29 @@
+<ng-container *ngIf="list$ | async as list">
+  <table class="table">
+    <thead>
+      <tr>
+        <th *ngFor="let col of cols">
+          {{ col.title | titlecase }}
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of list">
+        <td *ngFor="let col of cols">
+          {{ row[col.key] }}
+        </td>
+        <td>
+          <div class="btn-group">
+            <button (click)="raiseSelect(row)" class="btn btn-info">
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+            <button (click)="raiseDelete(row)" class="btn btn-danger">
+              <fa-icon [icon]="trashIcon"></fa-icon>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

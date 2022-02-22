@@ -1,20 +1,8 @@
-<ng-container *ngIf="userList$ | async as userList">
-  <table class="table">
-    <thead>
-      <tr>
-        <th *ngFor="let col of cols">
-          {{ col.title | titlecase }}
-        </th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let row of userList">
-        <td *ngFor="let col of cols">
-          {{ row[col.key] }}
-        </td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-</ng-container>
+<h2>User List</h2>
+
+<evo-data-table
+  [list$]="userList$"
+  [cols]="cols"
+  (startDelete)="handleDelete($event)"
+  (startSelect)="handleSelect($event)">
+</evo-data-table>
