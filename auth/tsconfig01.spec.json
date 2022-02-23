@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/app/page/forbidden/forbidden.component.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}

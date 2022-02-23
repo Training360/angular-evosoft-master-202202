@@ -9,6 +9,8 @@
     "analyze": "webpack-bundle-analyzer dist/auth/stats.json",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:01": "ng test --browsers ChromeHeadless --watch false --include src/app/page/forbidden/forbidden.component.spec.ts --ts-config tsconfig01.spec.json",
+    "test:02": "ng test --browsers ChromeHeadless --watch false --include src/app/user/user.component.spec.ts --ts-config tsconfig02.spec.json",
     "server": "json-server-auth ./server/users.json -r ./server/routes.json"
   },
   "private": true,
@@ -28,6 +30,7 @@
     "bootstrap": "^5.1.3",
     "json-server": "^0.17.0",
     "json-server-auth": "^2.1.0",
+    "memo-decorator": "^2.0.1",
     "ngx-bootstrap": "^8.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

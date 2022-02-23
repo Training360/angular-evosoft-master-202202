@@ -28,6 +28,8 @@ export class DataTableComponent<T extends {[k: string]: any}> implements OnInit 
 
   trashIcon = faTrashAlt;
 
+  phrase: string = '';
+
   constructor() { }
 
   ngOnInit(): void {
@@ -39,6 +41,12 @@ export class DataTableComponent<T extends {[k: string]: any}> implements OnInit 
 
   raiseSelect(row: T): void {
     this.startSelect.emit(row);
+  }
+
+  fibonacci(num: number): number {
+    if (num <= 1) return 1;
+
+    return this.fibonacci(num - 1) + this.fibonacci(num - 2);
   }
 
 }

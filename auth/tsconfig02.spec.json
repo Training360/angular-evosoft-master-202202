@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/app/user/user.component.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}

@@ -1,3 +1,8 @@
+<div class="row">
+  <div class="col-6">
+    <input [(ngModel)]="phrase" class="form-control" type="text">
+  </div>
+</div>
 <ng-container *ngIf="list$ | async as list">
   <table class="table">
     <thead>
@@ -6,12 +11,16 @@
           {{ col.title | titlecase }}
         </th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of list">
+      <tr *ngFor="let row of list | filter:phrase">
         <td *ngFor="let col of cols">
           {{ row[col.key] }}
+        </td>
+        <td>
+          {{ 25 | fibonacci }}
         </td>
         <td>
           <div class="btn-group">
